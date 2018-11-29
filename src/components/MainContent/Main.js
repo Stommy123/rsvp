@@ -1,19 +1,15 @@
 import React from 'react'
 import Counter from './Counter'
-import GuestList from './GuestList'
+import GuestList from './GuestList/GuestList'
+import ConfirmedFilter from './ConfirmedFilter'
+import PropTypes from "prop-types";
 
 const Main = props => (
     <div className="main">
-        <div>
-            <h2>Invitees</h2>
-            <label>
-                <input 
-                    onChange={props.toggleFilter} 
-                    checked={props.isFiltered} 
-                    type="checkbox" 
-                />Hide those who haven't responded
-            </label>
-        </div>
+        <ConfirmedFilter
+            toggleFilter={props.toggleFilter}
+            isFiltered={props.isFiltered}
+         />
         <Counter
             totalInvited={props.totalInvited}
             attending={props.numberAttending}
@@ -28,7 +24,21 @@ const Main = props => (
             guests={props.guests}
             pendingGuest={props.pendingGuest} 
         />
-    </div>
+        </div>
 )
+
+Main.propTypes = {
+    toggleFilter: PropTypes.func.isRequired,
+    isFiltered: PropTypes.bool.isRequired,
+    totalInvited: PropTypes.number.isRequired,
+    numberAttending: PropTypes.number.isRequired,
+    numberUnconfirmed: PropTypes.number.isRequired,
+    guests: PropTypes.array.isRequired,
+    toggleConfirmation: PropTypes.func.isRequired,
+    toggleEdit: PropTypes.func.isRequired,
+    changeName: PropTypes.func.isRequired,
+    removeGuest: PropTypes.func.isRequired,
+    pendingGuest: PropTypes.string.isRequired
+  };
 
 export default Main

@@ -35,32 +35,29 @@ class App extends Component {
 		})
 	}
 
-	toggleConfirmation = index => {
-		this.toggleGuestProperty("isConfirmed", index)
+	toggleConfirmation = id => {
+		this.toggleGuestProperty("isConfirmed", id)
 	}
 
-	toggleEdit = index => {
-		this.toggleGuestProperty("isEditing", index)
+	toggleEdit = id => {
+		this.toggleGuestProperty("isEditing", id)
 	}
 
 	toggleFilter = () => {
 		this.setState({ isFiltered: !this.state.isFiltered })
 	}
 
-	handleRemoveGuest = index => {
+	handleRemoveGuest = id => {
 		this.setState({
-			guests: [
-				...this.state.guests.slice(0, index),
-				...this.state.guests.slice(index + 1)
-			]
+			guests: this.state.guests.filter(guest => id !== guest.id)
 		})
 	}
 
-	handleChangeName = (name, index) => {
+	handleChangeName = (name, id) => {
 		console.log(this.state.guests)
 		this.setState({
 			guests: this.state.guests.map((guest, i) => {
-				if (index === i) {
+				if (id === i) {
 					return {
 						...guest,
 						name
@@ -79,6 +76,7 @@ class App extends Component {
 		e.preventDefault()
 		const { guests, pendingGuest } = this.state 
 		guests.push({
+			id: guests.length,
 			name: pendingGuest,
 			isConfirmed: false,
 			isEditing: false

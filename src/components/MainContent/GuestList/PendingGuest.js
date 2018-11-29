@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const PendingGuest = props => {
     if (props.name) {
@@ -12,5 +13,9 @@ const PendingGuest = props => {
     }
     return null
 }
+
+PendingGuest.propTypes = {
+    name: PropTypes.string.isRequired
+  };
 
 export default PendingGuest

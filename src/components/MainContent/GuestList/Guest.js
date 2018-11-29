@@ -1,5 +1,6 @@
 import React from 'react';
 import GuestName from './GuestName';
+import PropTypes from 'prop-types';
 
 const Guest = props => (
     <li>
@@ -21,5 +22,13 @@ const Guest = props => (
         <button onClick={props.handleRemoveGuest}>remove</button>
     </li>
 )
+
+Guest.propTypes = {
+    guest: PropTypes.object.isRequired,
+    handleConfirmation: PropTypes.func.isRequired,
+    handleEdit: PropTypes.func.isRequired,
+    changeName: PropTypes.func.isRequired,
+    handleRemoveGuest: PropTypes.func.isRequired
+  };
 
 export default Guest
