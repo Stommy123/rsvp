@@ -2,13 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import GuestForm from './GuestForm'
 
-const Header = props => (
+const Header = ({ handleNewGuest, pendingGuest, handleNameInput }) => (
     <header>
         <h1>RSVP</h1>
         <GuestForm
-            handleNewGuest={props.handleNewGuest}
-            handleNameInput={props.handleNameInput}
-            pendingGuest={props.pendingGuest}
+            handleNewGuest={handleNewGuest}
+            handleNameInput={handleNameInput}
+            pendingGuest={pendingGuest}
         />
     </header>
 )

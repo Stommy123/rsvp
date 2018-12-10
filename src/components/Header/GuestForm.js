@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from "prop-types";
 
-const GuestForm = props => (
-    <form onSubmit={props.handleNewGuest}>
+const GuestForm = ({ handleNewGuest, pendingGuest, handleNameInput }) => (
+    <form onSubmit={handleNewGuest}>
         <input 
-            onChange={props.handleNameInput}
+            onChange={handleNameInput}
             type="text" 
-            value={props.pendingGuest}
+            value={pendingGuest}
             placeholder="Invite Someone" 
         />
         <button type="submit" name="submit" >Submit</button>

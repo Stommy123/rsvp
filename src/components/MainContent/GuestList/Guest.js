@@ -2,24 +2,30 @@ import React from 'react';
 import GuestName from './GuestName';
 import PropTypes from 'prop-types';
 
-const Guest = props => (
+const Guest = ({ 
+    guest, 
+    handleConfirmation, 
+    handleEdit, 
+    changeName, 
+    handleRemoveGuest 
+}) => (
     <li>
         <GuestName 
-            handleNameEdit={e => props.changeName(e.target.value)} 
-            isEditing={props.guest.isEditing}
+            handleNameEdit={e => changeName(e.target.value)} 
+            isEditing={guest.isEditing}
         >
-            {props.guest.name}
+            {guest.name}
         </GuestName>
         <label>
             <input 
-                onChange={props.handleConfirmation} 
+                onChange={handleConfirmation} 
                 type="checkbox" 
-                checked={props.guest.isConfirmed} /> Confirmed
+                checked={guest.isConfirmed} /> Confirmed
         </label>
-        <button onClick={props.handleEdit}>
-        {props.guest.isEditing ? "Save" : "Edit"}
+        <button onClick={handleEdit}>
+        {guest.isEditing ? "Save" : "Edit"}
         </button>
-        <button onClick={props.handleRemoveGuest}>remove</button>
+        <button onClick={handleRemoveGuest}>remove</button>
     </li>
 )
 

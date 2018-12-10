@@ -4,27 +4,39 @@ import GuestList from './GuestList/GuestList'
 import ConfirmedFilter from './ConfirmedFilter'
 import PropTypes from "prop-types";
 
-const Main = props => (
+const Main = ({
+    toggleFilter, 
+    isFiltered, 
+    totalInvited,
+    numberAttending,
+    numberUnconfirmed,
+    guests,
+    toggleConfirmation,
+    toggleEdit,
+    changeName,
+    removeGuest,
+    pendingGuest
+}) => (
     <div className="main">
         <ConfirmedFilter
-            toggleFilter={props.toggleFilter}
-            isFiltered={props.isFiltered}
-         />
+            toggleFilter={toggleFilter}
+            isFiltered={isFiltered}
+        />
         <Counter
-            totalInvited={props.totalInvited}
-            attending={props.numberAttending}
-            unconfirmed={props.numberUnconfirmed}
+            totalInvited={totalInvited}
+            attending={numberAttending}
+            unconfirmed={numberUnconfirmed}
         />
         <GuestList 
-            isFiltered={props.isFiltered}
-            changeName={props.changeName} 
-            toggleEdit={props.toggleEdit} 
-            toggleConfirmation={props.toggleConfirmation}
-            handleRemoveGuest={props.removeGuest} 
-            guests={props.guests}
-            pendingGuest={props.pendingGuest} 
+            isFiltered={isFiltered}
+            changeName={changeName} 
+            toggleEdit={toggleEdit} 
+            toggleConfirmation={toggleConfirmation}
+            handleRemoveGuest={removeGuest} 
+            guests={guests}
+            pendingGuest={pendingGuest} 
         />
-        </div>
+    </div>
 )
 
 Main.propTypes = {

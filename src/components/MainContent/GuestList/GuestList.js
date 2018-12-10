@@ -3,18 +3,26 @@ import Guest from './Guest'
 import PendingGuest from './PendingGuest'
 import PropTypes from 'prop-types'
 
-const GuestList = props => (
+const GuestList = ({ 
+    guests, 
+    toggleConfirmation, 
+    toggleEdit, 
+    changeName, 
+    isFiltered, 
+    handleRemoveGuest,
+    pendingGuest
+}) => (
     <ul>
-        <PendingGuest name={props.pendingGuest} />
+        <PendingGuest name={pendingGuest} />
         {
-            props.guests
-            .filter(guest => !props.isFiltered || guest.isConfirmed)
+            guests
+            .filter(guest => !isFiltered || guest.isConfirmed)
             .map((guest, i) => 
                     <Guest 
-                        changeName={text => props.changeName(text, guest.id)} 
-                        handleEdit={() => props.toggleEdit(guest.id)} 
-                        handleConfirmation={() => props.toggleConfirmation(guest.id)}
-                        handleRemoveGuest={() => props.handleRemoveGuest(guest.id)} 
+                        changeName={text => changeName(text, guest.id)} 
+                        handleEdit={() => toggleEdit(guest.id)} 
+                        handleConfirmation={() => toggleConfirmation(guest.id)}
+                        handleRemoveGuest={() => handleRemoveGuest(guest.id)} 
                         guest={guest} 
                         key={i} 
                     />

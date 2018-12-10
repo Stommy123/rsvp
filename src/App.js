@@ -8,23 +8,18 @@ class App extends Component {
 	state = {
 		guests: guestList,
 		isFiltered: false,
-		pendingGuest: ""
+		pendingGuest: "",
+		newGuestID: guestList.length
 	}
 
 	getTotalInvited = () => this.state.guests.length
 
-	getAttendingGuests = () => {
-		return this.state.guests.reduce(
-				(total, guest) => guest.isConfirmed ? total + 1 : total,
-			 	0
-			 )
-	}
+	getAttendingGuests = () => this.state.guests.reduce((total, guest) => guest.isConfirmed ? total + 1 : total, 0)
 
 	toggleGuestProperty = (prop, index) => {
-		console.log(this.state.guests)
 		this.setState({
 			guests: this.state.guests.map((guest, i) => {
-				if (index === i) {
+				if (index === guest.id) {
 					return {
 						...guest,
 						[prop]: !guest[prop]
@@ -35,29 +30,18 @@ class App extends Component {
 		})
 	}
 
-	toggleConfirmation = id => {
-		this.toggleGuestProperty("isConfirmed", id)
-	}
+	toggleConfirmation = id =>  this.toggleGuestProperty("isConfirmed", id) 
 
-	toggleEdit = id => {
-		this.toggleGuestProperty("isEditing", id)
-	}
+	toggleEdit = id => this.toggleGuestProperty("isEditing", id)
 
-	toggleFilter = () => {
-		this.setState({ isFiltered: !this.state.isFiltered })
-	}
+	toggleFilter = () => this.setState({ isFiltered: !this.state.isFiltered })
 
-	handleRemoveGuest = id => {
-		this.setState({
-			guests: this.state.guests.filter(guest => id !== guest.id)
-		})
-	}
+	handleRemoveGuest = id => this.setState({ guests: this.state.guests.filter(guest => id !== guest.id) })
 
 	handleChangeName = (name, id) => {
-		console.log(this.state.guests)
 		this.setState({
 			guests: this.state.guests.map((guest, i) => {
-				if (id === i) {
+				if (id === guest.id) {
 					return {
 						...guest,
 						name
@@ -68,21 +52,18 @@ class App extends Component {
 		})
 	}
 
-	handleNameInput = e => {
-		this.setState({ pendingGuest: e.target.value })
-	}
+	handleNameInput = e => this.setState({ pendingGuest: e.target.value })
 
 	handleNewGuest = e => {
 		e.preventDefault()
-		const { guests, pendingGuest } = this.state 
+		const { guests, pendingGuest, newGuestID } = this.state 
 		guests.push({
-			id: guests.length,
+			id: newGuestID,
 			name: pendingGuest,
 			isConfirmed: false,
 			isEditing: false
 		})
-		this.setState({ guests, pendingGuest: '' })
-
+		this.setState({ guests, pendingGuest: '', newGuestID: newGuestID + 1 })
 	}
 
   	render() {
