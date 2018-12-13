@@ -1,1 +1,6 @@
-## Basic React App with CRUD Operations / Filtering 
+## RSVP
+
+* React
+* Bootstrap
+* CRUD
+* Filtering
