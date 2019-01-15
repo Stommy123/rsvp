@@ -17,20 +17,12 @@ class App extends Component {
 	getAttendingGuests = () => this.state.guests.reduce((total, guest) => guest.isConfirmed ? total + 1 : total, 0)
 
 	toggleGuestProperty = (prop, index) => {
-		this.setState({
-			guests: this.state.guests.map((guest, i) => {
-				if (index === guest.id) {
-					return {
-						...guest,
-						[prop]: !guest[prop]
-					}
-				}
-				return guest
-			})
-		})
+		let { guests } = this.state
+		guests = guests.map(guest => index === guest.id ? { ...guest, [prop]: !guest[prop] } : guest)
+		this.setState({ guests })
 	}
 
-	toggleConfirmation = id =>  this.toggleGuestProperty("isConfirmed", id) 
+	toggleConfirmation = id =>  this.toggleGuestProperty("isConfirmed", id)
 
 	toggleEdit = id => this.toggleGuestProperty("isEditing", id)
 
@@ -39,24 +31,16 @@ class App extends Component {
 	handleRemoveGuest = id => this.setState({ guests: this.state.guests.filter(guest => id !== guest.id) })
 
 	handleChangeName = (name, id) => {
-		this.setState({
-			guests: this.state.guests.map((guest, i) => {
-				if (id === guest.id) {
-					return {
-						...guest,
-						name
-					}
-				}
-				return guest
-			})
-		})
+		let { guests } = this.state
+		guests = guests.map(guest => id === guest.id ? { ...guest, name } : guest)
+		this.setState({ guests })
 	}
 
 	handleNameInput = e => this.setState({ pendingGuest: e.target.value })
 
 	handleNewGuest = e => {
 		e.preventDefault()
-		const { guests, pendingGuest, newGuestID } = this.state 
+		const { guests, pendingGuest, newGuestID } = this.state
 		guests.push({
 			id: newGuestID,
 			name: pendingGuest,
@@ -71,7 +55,10 @@ class App extends Component {
 		const numberAttending = this.getAttendingGuests()
 		const numberUnconfirmed = totalInvited - numberAttending
 		const { guests, isFiltered, pendingGuest } = this.state
-
+		const guestList = guests.reduce((acc, guest) => {
+			if ( !isFiltered || guest.isConfirmed) acc.push(guest)
+			return acc
+		}, [])
 		return (
 			<div className="App">
 				<Header
@@ -85,6 +72,7 @@ class App extends Component {
 					totalInvited={totalInvited}
 					numberAttending={numberAttending}
 					numberUnconfirmed={numberUnconfirmed}
+					guestList={guestList}
 					guests={guests}
 					toggleConfirmation={this.toggleConfirmation}
 					toggleEdit={this.toggleEdit}

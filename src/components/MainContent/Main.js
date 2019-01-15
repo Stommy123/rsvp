@@ -5,12 +5,13 @@ import ConfirmedFilter from './ConfirmedFilter'
 import PropTypes from "prop-types";
 
 const Main = ({
-    toggleFilter, 
-    isFiltered, 
+    toggleFilter,
+    isFiltered,
     totalInvited,
     numberAttending,
     numberUnconfirmed,
     guests,
+    guestList,
     toggleConfirmation,
     toggleEdit,
     changeName,
@@ -27,14 +28,15 @@ const Main = ({
             attending={numberAttending}
             unconfirmed={numberUnconfirmed}
         />
-        <GuestList 
+        <GuestList
             isFiltered={isFiltered}
-            changeName={changeName} 
-            toggleEdit={toggleEdit} 
+            changeName={changeName}
+            toggleEdit={toggleEdit}
             toggleConfirmation={toggleConfirmation}
-            handleRemoveGuest={removeGuest} 
+            handleRemoveGuest={removeGuest}
             guests={guests}
-            pendingGuest={pendingGuest} 
+            guestList={guestList}
+            pendingGuest={pendingGuest}
         />
     </div>
 )

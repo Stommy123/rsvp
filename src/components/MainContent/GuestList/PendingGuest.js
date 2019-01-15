@@ -1,16 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const PendingGuest = ({ name }) => {
-    if (name) {
-        return (
-            <li className="pending">
-                <span> {name} </span>
-            </li>
-        )
-    }
-    return null
-}
+const PendingGuest = ({ name }) => name && (<li className="pending"><span>{name}</span></li>)
 
 PendingGuest.propTypes = {
     name: PropTypes.string.isRequired
