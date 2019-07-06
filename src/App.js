@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Header, Content } from './components';
-import guests from './data/guestData';
-import './App.css';
+import React, { Component } from "react";
+import { Header, Content } from "./components";
+import guests from "./data/guestData";
+import "./App.css";
 
 class App extends Component {
   state = {
@@ -33,14 +33,9 @@ class App extends Component {
 
   handleNewGuest = e => {
     e.preventDefault();
-    const { guests, pendingGuest, newGuestID } = this.state;
-    guests.push({
-      id: newGuestID,
-      name: pendingGuest,
-      isConfirmed: false,
-      isEditing: false
-    });
-    this.setState({ guests, pendingGuest: String(), newGuestID: newGuestID + 1 });
+    const { guests, pendingGuest: name, newGuestID: id } = this.state;
+    const newGuestsList = [...guests, { id, name, isConfirmed: false, isEditing: false }];
+    this.setState({ guests: newGuestsList, pendingGuest: String(), newGuestID: newGuestID + 1 });
   };
 
   render() {
@@ -49,7 +44,7 @@ class App extends Component {
     const numberUnconfirmed = totalInvited - numberAttending;
     const { guests, isFiltered, pendingGuest } = this.state;
     const guestList = guests.reduce((acc, guest) => {
-      if (!isFiltered || guest.isConfirmed) acc.push(guest);
+      !isFiltered || (guest.isConfirmed && acc.push(guest));
       return acc;
     }, []);
     return (
